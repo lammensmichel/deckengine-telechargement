@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>deckengine — télécharger</title>
+<meta name="description" content="deckengine, logiciel DJ pour Mac et Windows : télécharger la dernière version.">
+<style>
+  :root { --fond:#101114; --carte:#1b1d22; --texte:#eceef2; --doux:#9aa0ab; --accent:#ff6a2b; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+         background:var(--fond); color:var(--texte); line-height:1.55; }
+  main { max-width:960px; margin:0 auto; padding:48px 20px 64px; }
+  h1 { font-size:2.6rem; margin:0 0 8px; letter-spacing:-0.02em; }
+  .accroche { color:var(--doux); font-size:1.2rem; margin:0 0 36px; }
+  .boutons { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+  .bouton { display:block; padding:20px; border-radius:12px; background:var(--carte);
+            color:var(--texte); text-decoration:none; border:2px solid transparent; }
+  .bouton:hover, .bouton:focus { border-color:var(--accent); }
+  .bouton.conseille { border-color:var(--accent); }
+  .bouton strong { display:block; font-size:1.15rem; }
+  .bouton span { color:var(--doux); font-size:0.95rem; }
+  .version { color:var(--doux); margin-top:12px; font-size:0.95rem; }
+  section { margin-top:56px; }
+  h2 { font-size:1.4rem; margin:0 0 12px; }
+  ul { padding-left:1.2em; }
+  .captures { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:12px; }
+  .captures img { width:100%; border-radius:8px; background:var(--carte); }
+  .note { background:var(--carte); border-radius:10px; padding:14px 18px; color:var(--doux); }
+  footer { margin-top:64px; color:var(--doux); font-size:0.9rem; }
+  a { color:var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>deckengine</h1>
+  <p class="accroche">Le logiciel DJ pensé pour mixer en soirée : analyse du tempo et de la tonalité,
+     stems, effets, contrôleurs MIDI et platines Pioneer.</p>
+
+  <!-- Les liens « latest/download » pointent toujours vers la dernière version publiée :
+       les fichiers de chaque version doivent garder exactement ces noms (voir publier-version.sh). -->
+  <div class="boutons">
+    <a class="bouton" id="mac-arm" href="https://github.com/lammensmichel/deckengine-telechargement/releases/latest/download/deckengine-mac-apple-silicon.dmg">
+      <strong>Télécharger pour Mac</strong><span>Apple Silicon (M1, M2, M3, M4…)</span></a>
+    <a class="bouton" id="mac-intel" href="https://github.com/lammensmichel/deckengine-telechargement/releases/latest/download/deckengine-mac-intel.dmg">
+      <strong>Télécharger pour Mac</strong><span>processeur Intel</span></a>
+    <a class="bouton" id="windows" href="https://github.com/lammensmichel/deckengine-telechargement/releases/latest/download/deckengine-windows.exe">
+      <strong>Télécharger pour Windows</strong><span>Windows 10 et 11 (64 bits)</span></a>
+  </div>
+  <p class="version">Toutes les versions et les notes de mise à jour :
+     <a href="https://github.com/lammensmichel/deckengine-telechargement/releases">page des versions</a>.
+     Mac : « Pomme  → À propos de ce Mac » indique « Puce Apple » ou « Processeur Intel ».</p>
+
+  <section>
+    <h2>Configuration requise</h2>
+    <ul>
+      <li><strong>Mac</strong> : macOS 11 (Big Sur) ou plus récent, puce Apple ou processeur Intel.</li>
+      <li><strong>Windows</strong> : Windows 10 ou 11, 64 bits.</li>
+      <li>4 Go de mémoire (8 Go conseillés pour les stems), 1 Go d'espace disque libre
+          plus la place pour vos morceaux.</li>
+      <li>Une carte son avec deux sorties stéréo (ou un contrôleur DJ) pour la pré-écoute au casque.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <ul>
+      <li><strong>Mac</strong> : ouvrez le fichier .dmg et glissez deckengine sur le dossier Applications.</li>
+      <li><strong>Windows</strong> : lancez le fichier téléchargé et suivez les étapes.</li>
+    </ul>
+    <!-- À RETIRER une fois les versions signées (voir docs/signature.md dans le dépôt privé) -->
+    <p class="note" id="non-signe">Version d'essai non signée. Au premier lancement :
+      sur Mac, <em>Réglages Système → Confidentialité et sécurité → Ouvrir quand même</em> ;
+      sur Windows, <em>Informations complémentaires → Exécuter quand même</em>.</p>
+  </section>
+
+  <footer>© deckengine. Logiciel propriétaire ; les licences des composants tiers sont listées dans
+    le fichier NOTICE.txt livré avec l'application.</footer>
+</main>
+<script>
+  // Met en avant le bouton correspondant à l'ordinateur du visiteur (sans rien envoyer nulle part).
+  (function () {
+    var ua = navigator.userAgent || "";
+    var id = /Windows/.test(ua) ? "windows" : (/Mac/.test(ua) ? "mac-arm" : null);
+    if (id) { document.getElementById(id).classList.add("conseille"); }
+  })();
+</script>
+</body>
+</html>
